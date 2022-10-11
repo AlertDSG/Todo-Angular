@@ -9,4 +9,5 @@
     <span (dblclick)="activateEditeMode()">{{ todo.title }}</span>
   </ng-template>
   <button (click)="removeTodoHandler()">Delete</button>
+  <tl-tasks [todoId]="todo.id"></tl-tasks>
 </div>
