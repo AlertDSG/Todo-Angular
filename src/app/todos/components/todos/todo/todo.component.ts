@@ -9,8 +9,21 @@ import { Todo } from '../../../models/todos.model'
 export class TodoComponent {
   @Input() todo!: Todo
   @Output() removeTodoEvent = new EventEmitter<string>()
+  @Output() editTodoEvent = new EventEmitter<{ todoId: string; title: string }>()
+
+  isEditMode = false
+  title = this.todo.title
 
   removeTodoHandler() {
     this.removeTodoEvent.emit(this.todo.id)
+  }
+
+  activateEditeMode() {
+    this.isEditMode = true
+  }
+
+  editTitleHandler() {
+    this.editTodoEvent.emit({ todoId: this.todo.id, title: this.title })
+    this.isEditMode = false
   }
 }
