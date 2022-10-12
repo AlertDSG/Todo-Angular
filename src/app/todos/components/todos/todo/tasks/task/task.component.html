@@ -1,4 +1,9 @@
 <div>
+  <input
+    type="checkbox"
+    (click)="changeTaskStatusHandler($event)"
+    [checked]="task.status === taskStatusEnum.completed"
+  />
   <span>{{ task.title }}</span>
   <button (click)="deleteTask()">Delete</button>
 </div>
