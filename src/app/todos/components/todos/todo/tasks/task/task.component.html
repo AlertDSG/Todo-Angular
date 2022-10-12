@@ -4,6 +4,14 @@
     (click)="changeTaskStatusHandler($event)"
     [checked]="task.status === taskStatusEnum.completed"
   />
-  <span>{{ task.title }}</span>
+  <input
+    type="text"
+    *ngIf="isEditMode; else content"
+    (blur)="changeTaskTitleHandler()"
+    [(ngModel)]="title"
+  />
+  <ng-template #content>
+    <span (dblclick)="editModeHandler()">{{ task.title }}</span>
+  </ng-template>
   <button (click)="deleteTask()">Delete</button>
 </div>

@@ -9,7 +9,7 @@ import { CommonResponse } from '../../core/models/core.model'
   providedIn: 'root',
 })
 export class TasksService {
-  tasksS = new BehaviorSubject<DomainTask>({})
+  tasks$ = new BehaviorSubject<DomainTask>({})
 
   constructor(private http: HttpClient) {}
 
@@ -18,13 +18,13 @@ export class TasksService {
       .get<GetTasksResponse>(`${environment.baseUrl}/todo-lists/${todoId}/tasks`)
       .pipe(
         map(res => {
-          return res.items
+          const stateTasks = this.tasks$.getValue()
+          stateTasks[todoId] = res.items
+          return stateTasks
         })
       )
       .subscribe(tasks => {
-        const stateTasks = this.tasksS.getValue()
-        stateTasks[todoId] = tasks
-        this.tasksS.next(stateTasks)
+        this.tasks$.next(tasks)
       })
   }
 
@@ -38,14 +38,14 @@ export class TasksService {
       )
       .pipe(
         map(res => {
-          const stateTasks = this.tasksS.getValue()
+          const stateTasks = this.tasks$.getValue()
           const newTask = res.data.item
           stateTasks[data.todoId] = [newTask, ...stateTasks[data.todoId]]
           return stateTasks
         })
       )
       .subscribe(tasks => {
-        this.tasksS.next(tasks)
+        this.tasks$.next(tasks)
       })
   }
 
@@ -56,16 +56,16 @@ export class TasksService {
       )
       .pipe(
         map(() => {
-          const stateTasks = this.tasksS.getValue()
+          const stateTasks = this.tasks$.getValue()
           stateTasks[data.todoId] = stateTasks[data.todoId].filter(task => task.id !== data.taskId)
           return stateTasks
         })
       )
       .subscribe(tasks => {
-        this.tasksS.next(tasks)
+        this.tasks$.next(tasks)
       })
   }
-  updateTaskStatus(data: { todoId: string; taskId: string; model: UpdateTaskModel }) {
+  updateTask(data: { todoId: string; taskId: string; model: UpdateTaskModel }) {
     this.http
       .put<CommonResponse>(
         `${environment.baseUrl}/todo-lists/${data.todoId}/tasks/${data.taskId}`,
@@ -73,15 +73,15 @@ export class TasksService {
       )
       .pipe(
         map(() => {
-          const stateTasks = this.tasksS.getValue()
+          const stateTasks = this.tasks$.getValue()
           stateTasks[data.todoId] = stateTasks[data.todoId].map(task =>
-            task.id !== data.taskId ? { ...task, ...data.model } : task
+            task.id === data.taskId ? { ...task, ...data.model } : task
           )
           return stateTasks
         })
       )
       .subscribe(tasks => {
-        this.tasksS.next(tasks)
+        this.tasks$.next(tasks)
       })
   }
 }

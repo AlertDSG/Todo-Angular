@@ -12,13 +12,14 @@ export class TodoComponent {
   @Output() editTodoEvent = new EventEmitter<{ todoId: string; title: string }>()
 
   isEditMode = false
-  title = this.todo.title
+  title = ''
 
   removeTodoHandler() {
     this.removeTodoEvent.emit(this.todo.id)
   }
 
   activateEditeMode() {
+    this.title = this.todo.title
     this.isEditMode = true
   }
 

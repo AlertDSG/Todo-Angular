@@ -1,13 +1,15 @@
-<div>
-  <input
-    type="text"
-    *ngIf="isEditMode; else content"
-    (blur)="editTitleHandler()"
-    [(ngModel)]="title"
-  />
-  <ng-template #content>
-    <span (dblclick)="activateEditeMode()">{{ todo.title }}</span>
-  </ng-template>
-  <button (click)="removeTodoHandler()">Delete</button>
+<div class="todoBody">
+  <div>
+    <input
+      type="text"
+      *ngIf="isEditMode; else content"
+      (blur)="editTitleHandler()"
+      [(ngModel)]="title"
+    />
+    <ng-template #content>
+      <span (dblclick)="activateEditeMode()">{{ todo.title }}</span>
+    </ng-template>
+    <button (click)="removeTodoHandler()">Delete</button>
+  </div>
   <tl-tasks [todoId]="todo.id"></tl-tasks>
 </div>

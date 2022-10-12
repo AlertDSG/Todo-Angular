@@ -18,11 +18,12 @@ export class TasksComponent implements OnInit {
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
-    this.tasks$ = this.tasksService.tasksS.pipe(
+    this.tasks$ = this.tasksService.tasks$.pipe(
       map(tasks => {
         return tasks[this.todoId]
       })
     )
+    console.log(this.tasks$)
     this.tasksService.getTasks(this.todoId)
   }
 
@@ -35,6 +36,6 @@ export class TasksComponent implements OnInit {
   }
 
   changeStatusTask(data: { todoId: string; taskId: string; model: UpdateTaskModel }) {
-    this.tasksService.updateTaskStatus(data)
+    this.tasksService.updateTask(data)
   }
 }
