@@ -5,9 +5,11 @@
   [(ngModel)]="taskTitle"
   (keyup.enter)="addTaskHandler()"
 />
-<tl-task
-  *ngFor="let task of tasks$ | async"
-  [task]="task"
-  (taskIdEvent)="removeTask($event)"
-  (taskUpdateEvent)="changeStatusTask($event)"
-></tl-task>
+<div>
+  <tl-task
+    *ngFor="let task of tasks$ | async"
+    [task]="task"
+    (taskIdEvent)="removeTask($event)"
+    (taskUpdateEvent)="changeStatusTask($event)"
+  ></tl-task>
+</div>

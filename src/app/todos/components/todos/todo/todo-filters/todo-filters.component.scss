@@ -1,4 +1,8 @@
 .filterBody {
   display: flex;
   justify-content: space-between;
+  .active {
+    background-color: aquamarine;
+  }
 }
+
