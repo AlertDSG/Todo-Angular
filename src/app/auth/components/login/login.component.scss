@@ -1,0 +1,16 @@
+.box {
+  margin: 0 auto;
+  max-width: 350px;
+  text-align: center;
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    gap: 15px;
+    .error {
+      color: red;
+    }
+  }
+}
+
