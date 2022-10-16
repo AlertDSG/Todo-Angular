@@ -1,17 +1,19 @@
-<div>
-  <input
-    type="checkbox"
-    (click)="changeTaskStatusHandler($event)"
-    [checked]="task.status === taskStatusEnum.completed"
-  />
-  <input
-    type="text"
-    *ngIf="isEditMode; else content"
-    (blur)="changeTaskTitleHandler()"
-    [(ngModel)]="title"
-  />
-  <ng-template #content>
-    <span (dblclick)="editModeHandler()">{{ task.title }}</span>
-  </ng-template>
-  <button (click)="deleteTask()">Delete</button>
+<div class="taskBody">
+  <div [ngClass]="{ completedTask: task.status === taskStatusEnum.completed }">
+    <input
+      type="checkbox"
+      (click)="changeTaskStatusHandler($event)"
+      [checked]="task.status === taskStatusEnum.completed"
+    />
+    <input
+      type="text"
+      *ngIf="isEditMode; else content"
+      (blur)="changeTaskTitleHandler()"
+      [(ngModel)]="title"
+    />
+    <ng-template #content>
+      <span (dblclick)="editModeHandler()">{{ task.title }}</span>
+    </ng-template>
+  </div>
+  <button (click)="deleteTask()">-</button>
 </div>

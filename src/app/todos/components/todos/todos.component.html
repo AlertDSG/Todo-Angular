@@ -1,11 +1,12 @@
-<input type="text" placeholder="Add new Todo" [(ngModel)]="todoTitle" />
-<button (click)="addTodoHandler()">+</button>
-<div class="todo-body">
+<div class="addTodo">
+  <input type="text" placeholder="Add new Todo" [(ngModel)]="todoTitle" />
+  <button (click)="addTodoHandler()">+</button>
+</div>
+<div class="todoBody">
   <tl-todo
     *ngFor="let todo of todos$ | async"
     [todo]="todo"
     (removeTodoEvent)="removeTodo($event)"
     (editTodoEvent)="editTodo($event)"
-    class="todo"
   ></tl-todo>
 </div>

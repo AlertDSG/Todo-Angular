@@ -1,0 +1,11 @@
+.taskBody {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  .completedTask {
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+}
+
+

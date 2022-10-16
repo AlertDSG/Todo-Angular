@@ -1,4 +1,12 @@
-.todoBody{
+.todo {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  border: 1px solid gray;
+  padding: 15px;
+}
+
+.todoHeader {
+  display: flex;
+  justify-content: space-between;
 }
