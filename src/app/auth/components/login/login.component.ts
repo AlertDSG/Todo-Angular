@@ -9,21 +9,21 @@ import { AuthService } from '../../../core/services/auth.service'
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    email: new FormControl('', {
+    email: new FormControl<string>('', {
       nonNullable: true,
       validators: [
         Validators.required,
         Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,5}$'),
       ],
     }),
-    password: new FormControl('', {
+    password: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(6)],
     }),
     rememberMe: new FormControl<boolean>(false, { nonNullable: true }),
   })
 
-  constructor(private auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   get email() {
     return this.loginForm.get('email')
@@ -35,6 +35,6 @@ export class LoginComponent {
 
   onLoginSubmit() {
     const value = this.loginForm.value
-    this.auth.login(value)
+    this.authService.login(value)
   }
 }
