@@ -10,6 +10,12 @@ import { LoginRequestData, MeResponse } from '../models/auth.model'
 export class AuthService {
   isAuth = false
 
+  resolveAuthRequest: Function = () => {}
+
+  authRequest = new Promise(resolve => {
+    this.resolveAuthRequest = resolve
+  })
+
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data: Partial<LoginRequestData>) {
@@ -17,6 +23,7 @@ export class AuthService {
       .post<CommonResponse<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
+          this.isAuth = true
           this.router.navigate(['/'])
         }
       })
@@ -35,6 +42,7 @@ export class AuthService {
       if (res.resultCode === ResultCodeEnum.success) {
         this.isAuth = true
       }
+      this.resolveAuthRequest()
     })
   }
 }

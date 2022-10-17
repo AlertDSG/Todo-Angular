@@ -11,6 +11,12 @@
     .error {
       color: red;
     }
+    .inputError {
+      border: 1px solid red;
+    }
+    .inputSuccess {
+      border: 1px solid  green;
+    }
   }
 }
 
