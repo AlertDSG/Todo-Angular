@@ -26,7 +26,7 @@ export class AuthService {
 
   login(data: Partial<LoginRequestData>) {
     this.http
-      .post<CommonResponse<{ userId: number }>>(`${environment.baseUrl}/auth/login1`, data)
+      .post<CommonResponse<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
       .pipe(catchError(this.errorHandler.bind(this)))
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
